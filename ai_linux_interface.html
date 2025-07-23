@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Linux Assistant Interface</title>
+    <style>
+        :root {
+            --primary-color: #4a86e8;
+            --secondary-color: #6aa84f;
+            --background-color: #f9f9f9;
+            --terminal-bg: #2d2d2d;
+            --terminal-text: #e0e0e0;
+            --border-color: #d0d0d0;
+            --hover-color: #e8f0fe;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: white;
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .logo-icon {
+            margin-right: 10px;
+            font-size: 28px;
+        }
+        
+        .main-content {
+            display: flex;
+            margin-top: 20px;
+            height: calc(100vh - 120px);
+        }
+        
+        .sidebar {
+            width: 250px;
+            background-color: white;
+            border-right: 1px solid var(--border-color);
+            padding: 15px;
+            overflow-y: auto;
+        }
+        
+        .sidebar-section {
+            margin-bottom: 20px;
+        }
+        
+        .sidebar-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #555;
+        }
+        
+        .sidebar-item {
+            padding: 8px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 5px;
+            transition: background-color 0.2s;
+        }
+        
+        .sidebar-item:hover {
+            background-color: var(--hover-color);
+        }
+        
+        .sidebar-item.active {
+            background-color: var(--hover-color);
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .terminal-container {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-left: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .terminal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            background-color: #f5f5f5;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .terminal-title {
+            font-weight: bold;
+            color: #555;
+        }
+        
+        .terminal-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .terminal-action {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #777;
+            font-size: 16px;
+        }
+        
+        .terminal {
+            flex-grow: 1;
+            background-color: var(--terminal-bg);
+            color: var(--terminal-text);
+            padding: 15px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            overflow-y: auto;
+        }
+        
+        .command-input {
+            display: flex;
+            padding: 10px 15px;
+            background-color: #f5f5f5;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .prompt {
+            color: var(--primary-color);
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .command-input input {
+            flex-grow: 1;
+            border: none;
+            background: none;
+            outline: none;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 14px;
+        }
+        
+        .user-command {
+            color: var(--terminal-text);
+            margin-bottom: 5px;
+        }
+        
+        .system-response {
+            color: #a5d6a7;
+            margin-bottom: 15px;
+        }
+        
+        .error-message {
+            color: #ef9a9a;
+        }
+        
+        .info-message {
+            color: #90caf9;
+        }
+        
+        .command-suggestion {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 8px 12px;
+            border-radius: 4px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border-left: 3px solid var(--secondary-color);
+        }
+        
+        .suggestion-title {
+            font-weight: bold;
+            color: #b0bec5;
+            margin-bottom: 5px;
+        }
+        
+        .suggestion-command {
+            color: #ffcc80;
+            cursor: pointer;
+        }
+        
+        .suggestion-command:hover {
+            text-decoration: underline;
+        }
+        
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 20px;
+            background-color: #f0f0f0;
+            border-top: 1px solid var(--border-color);
+            font-size: 12px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <span class="logo-icon">🐧</span>
+            AI Linux Assistant
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="main-content">
+            <div class="sidebar">
+                <div class="sidebar-section">
+                    <div class="sidebar-title">Quick Actions</div>
+                    <div class="sidebar-item">Install Software</div>
+                    <div class="sidebar-item">Setup Development Environment</div>
+                    <div class="sidebar-item">System Update</div>
+                    <div class="sidebar-item">Configure Services</div>
+                </div>
+                
+                <div class="sidebar-section">
+                    <div class="sidebar-title">Recent Commands</div>
+                    <div class="sidebar-item">install react-native</div>
+                    <div class="sidebar-item">update system</div>
+                    <div class="sidebar-item">setup python environment</div>
+                    <div class="sidebar-item">configure nginx</div>
+                </div>
+                
+                <div class="sidebar-section">
+                    <div class="sidebar-title">Saved Environments</div>
+                    <div class="sidebar-item active">Web Development</div>
+                    <div class="sidebar-item">Data Science</div>
+                    <div class="sidebar-item">DevOps</div>
+                    <div class="sidebar-item">Mobile Development</div>
+                </div>
+            </div>
+            
+            <div class="terminal-container">
+                <div class="terminal-header">
+                    <div class="terminal-title">AI Terminal</div>
+                    <div class="terminal-actions">
+                        <button class="terminal-action">⚙️</button>
+                        <button class="terminal-action">?</button>
+                    </div>
+                </div>
+                
+                <div class="terminal">
+                    <div class="user-command"><span class="prompt">ai-linux></span> install react-native</div>
+                    <div class="system-response">
+Analyzing command...
+Intent recognized: Install development framework with environment setup
+
+Checking dependencies:
+  Checking for node...
+  $ node -v
+  v18.16.0
+  ✓ node is installed
+  Checking for npm...
+  $ npm -v
+  9.5.1
+  ✓ npm is installed
+  Checking for jdk...
+  $ java -version
+  openjdk version "11.0.18" 2023-01-17
+  ✓ jdk is installed
+
+Installing React Native CLI:
+  $ npm install -g react-native-cli
+  + react-native-cli@2.0.1
+  added 82 packages in 4.235s
+
+Installing Yarn package manager:
+  $ npm install -g yarn
+  + yarn@1.22.19
+  added 1 package in 0.873s
+
+Setting up Android development environment:
+  Creating Android SDK directory at /home/user/Android/Sdk
+
+Setting up environment variables:
+  ANDROID_HOME=/home/user/Android/Sdk
+  PATH=$PATH:/home/user/Android/Sdk/tools:/home/user/Android/Sdk/platform-tools
+
+Updating shell configuration:
+  Updating /home/user/.bashrc
+
+Verifying installation:
+  ✓ React Native CLI is installed
+  ✓ Android SDK environment is configured
+  ✓ Shell configuration is updated
+
+React Native has been successfully installed!
+                    </div>
+                    
+                    <div class="command-suggestion">
+                        <div class="suggestion-title">Suggested Next Steps:</div>
+                        <div class="suggestion-command">create react-native project MyAwesomeApp</div>
+                        <div class="suggestion-command">setup android emulator</div>
+                    </div>
+                    
+                    <div class="user-command"><span class="prompt">ai-linux></span> create react-native project MyAwesomeApp</div>
+                    <div class="system-response">
+Creating a new React Native project named MyAwesomeApp...
+
+$ npx react-native init MyAwesomeApp
+Info: Creating new React Native project...
+Info: Downloading template...
+Info: Installing dependencies...
+Info: Project created successfully!
+
+You can now run your app with:
+
+$ cd MyAwesomeApp
+$ npx react-native run-android  # For Android
+$ npx react-native run-ios      # For iOS (requires macOS)
+                    </div>
+                    
+                    <div class="info-message">
+Tip: You can use "ai-linux> help react-native" to see all available React Native commands and tips.
+                    </div>
+                </div>
+                
+                <div class="command-input">
+                    <span class="prompt">ai-linux></span>
+                    <input type="text" placeholder="Type a command or ask a question..." autofocus>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="status-bar">
+        <div>AI Model: Local LLM (Llama3-8B)</div>
+        <div>System: Fedora 38 (AI Edition)</div>
+        <div>Memory: 2.4GB / 8GB</div>
+    </div>
+    
+    <script>
+        // This would be replaced with actual functionality in a real implementation
+        document.querySelector('.command-input input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                alert('In a real implementation, this would process your command: ' + this.value);
+                this.value = '';
+            }
+        });
+        
+        document.querySelectorAll('.suggestion-command').forEach(function(el) {
+            el.addEventListener('click', function() {
+                document.querySelector('.command-input input').value = this.textContent;
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,151 @@
+# AI Linux Distribution Configuration
+# This file defines the core settings for the AI assistant integration
+
+# LLM Configuration
+llm:
+  # Model type: local or cloud
+  type: local
+  
+  # For local models
+  local_model:
+    # Model path relative to /opt/ai-linux/models/
+    path: llama3-8b-instruct.gguf
+    # Quantization level (affects memory usage and performance)
+    quantization: q4_k_m
+    # Context window size
+    context_size: 8192
+    # Number of threads to use for inference
+    threads: 4
+    # GPU acceleration (if available)
+    gpu_layers: auto
+  
+  # For cloud models (if local processing is insufficient)
+  cloud_model:
+    provider: ollama  # alternatives: openai, anthropic, etc.
+    api_endpoint: http://localhost:11434/api/generate
+    model_name: llama3
+    # API key (if needed)
+    # api_key: env:OLLAMA_API_KEY
+    # Timeout in seconds
+    timeout: 30
+
+# System Integration
+system:
+  # Service configuration
+  service:
+    name: ai-linux-assistant
+    user: ai-linux
+    group: ai-linux
+    # Autostart with system
+    autostart: true
+    # Restart on failure
+    restart: true
+  
+  # Command interface
+  interface:
+    # Terminal command to invoke the assistant
+    command: ai
+    # Enable shell integration for command suggestions
+    shell_integration: true
+    # Enable desktop integration
+    desktop_integration: true
+    # Enable notification integration
+    notification_integration: true
+  
+  # Logging configuration
+  logging:
+    level: info  # debug, info, warning, error
+    path: /var/log/ai-linux/
+    # Maximum log size in MB
+    max_size: 100
+    # Number of log files to keep
+    backup_count: 5
+
+# Security Configuration
+security:
+  # Commands that require explicit confirmation
+  confirm_commands:
+    - remove
+    - delete
+    - format
+    - shutdown
+    - reboot
+  
+  # Commands that are never allowed
+  blocked_commands:
+    - rm -rf /
+    - mkfs
+    - dd if=/dev/zero
+  
+  # User permission levels
+  permission_levels:
+    # Regular user permissions
+    user:
+      can_install_packages: true
+      can_modify_system_config: false
+      can_access_system_services: false
+    
+    # Administrator permissions
+    admin:
+      can_install_packages: true
+      can_modify_system_config: true
+      can_access_system_services: true
+
+# Knowledge Base Configuration
+knowledge_base:
+  # Package database path
+  package_db: /opt/ai-linux/db/packages.json
+  # Environment configuration database
+  env_db: /opt/ai-linux/db/environments.json
+  # Command templates database
+  command_templates: /opt/ai-linux/db/commands.json
+  # Update frequency in hours
+  update_frequency: 24
+  # Enable online updates
+  online_updates: true
+
+# User Experience
+user_experience:
+  # Show command preview before execution
+  show_preview: true
+  # Show explanation of what the command does
+  show_explanation: true
+  # Show progress during long-running operations
+  show_progress: true
+  # Enable suggestions based on command history
+  enable_suggestions: true
+  # Enable learning from user corrections
+  learn_from_corrections: true
+  # Theme (light, dark, system)
+  theme: system
+  # Verbosity level (minimal, normal, detailed)
+  verbosity: normal
+
+# Integrations with Development Tools
+development_tools:
+  # IDE integrations
+  ide:
+    vscode: true
+    intellij: true
+    vim: true
+  
+  # Version control integrations
+  version_control:
+    git: true
+    svn: false
+  
+  # Container integrations
+  containers:
+    docker: true
+    podman: true
+
+# Performance Tuning
+performance:
+  # Cache size in MB
+  cache_size: 512
+  # Preload common commands
+  preload_commands: true
+  # Batch size for processing
+  batch_size: 16
+  # Low memory mode
+  low_memory_mode: false

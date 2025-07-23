@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <!-- Background -->
+  <rect width="800" height="600" fill="#f8f9fa" />
+  
+  <!-- Title -->
+  <text x="400" y="40" font-family="Arial" font-size="24" text-anchor="middle" font-weight="bold">AI-Integrated Linux Architecture</text>
+  
+  <!-- User Input -->
+  <rect x="50" y="100" width="200" height="60" rx="10" ry="10" fill="#e6f7ff" stroke="#1890ff" stroke-width="2" />
+  <text x="150" y="140" font-family="Arial" font-size="16" text-anchor="middle">User Natural Language Input</text>
+  
+  <!-- AI Processing Layer -->
+  <rect x="300" y="80" width="200" height="100" rx="10" ry="10" fill="#f6ffed" stroke="#52c41a" stroke-width="2" />
+  <text x="400" y="110" font-family="Arial" font-size="16" text-anchor="middle" font-weight="bold">AI Processing Layer</text>
+  <text x="400" y="135" font-family="Arial" font-size="14" text-anchor="middle">Intent Recognition</text>
+  <text x="400" y="160" font-family="Arial" font-size="14" text-anchor="middle">Command Generation</text>
+  
+  <!-- Knowledge Base -->
+  <rect x="550" y="100" width="200" height="60" rx="10" ry="10" fill="#fff2e8" stroke="#fa8c16" stroke-width="2" />
+  <text x="650" y="140" font-family="Arial" font-size="16" text-anchor="middle">System Knowledge Base</text>
+  
+  <!-- Command Execution -->
+  <rect x="300" y="230" width="200" height="80" rx="10" ry="10" fill="#f9f0ff" stroke="#722ed1" stroke-width="2" />
+  <text x="400" y="260" font-family="Arial" font-size="16" text-anchor="middle" font-weight="bold">Command Execution</text>
+  <text x="400" y="285" font-family="Arial" font-size="14" text-anchor="middle">Security Validation</text>
+  
+  <!-- System Services -->
+  <rect x="50" y="350" width="150" height="60" rx="10" ry="10" fill="#e6fffb" stroke="#13c2c2" stroke-width="2" />
+  <text x="125" y="390" font-family="Arial" font-size="16" text-anchor="middle">Package Manager</text>
+  
+  <rect x="225" y="350" width="150" height="60" rx="10" ry="10" fill="#e6fffb" stroke="#13c2c2" stroke-width="2" />
+  <text x="300" y="390" font-family="Arial" font-size="16" text-anchor="middle">File System</text>
+  
+  <rect x="400" y="350" width="150" height="60" rx="10" ry="10" fill="#e6fffb" stroke="#13c2c2" stroke-width="2" />
+  <text x="475" y="390" font-family="Arial" font-size="16" text-anchor="middle">Environment Config</text>
+  
+  <rect x="575" y="350" width="150" height="60" rx="10" ry="10" fill="#e6fffb" stroke="#13c2c2" stroke-width="2" />
+  <text x="650" y="390" font-family="Arial" font-size="16" text-anchor="middle">System Services</text>
+  
+  <!-- Linux Kernel -->
+  <rect x="150" y="450" width="500" height="60" rx="10" ry="10" fill="#fff0f6" stroke="#eb2f96" stroke-width="2" />
+  <text x="400" y="490" font-family="Arial" font-size="18" text-anchor="middle" font-weight="bold">Linux Kernel</text>
+  
+  <!-- User Feedback -->
+  <rect x="300" y="550" width="200" height="40" rx="10" ry="10" fill="#f0f5ff" stroke="#2f54eb" stroke-width="2" />
+  <text x="400" y="575" font-family="Arial" font-size="16" text-anchor="middle">User Feedback</text>
+  
+  <!-- Arrows -->
+  <!-- User Input to AI Processing -->
+  <path d="M 250 130 L 290 130" stroke="#000" stroke-width="2" fill="none" marker-end="url(#arrowhead)" />
+  
+  <!-- AI Processing to Knowledge Base -->
+  <path d="M 500 130 L 540 130" stroke="#000" stroke-width="2" fill="none" marker-end="url(#arrowhead)" />
+  
+  <!-- Knowledge Base to AI Processing -->
+  <path d="M 550 150 L 510 150" stroke="#000" stroke-width="2" fill="none" marker-end="url(#arrowhead)" />
+  
+  <!-- AI Processing to Command Execution -->
+  <path d="M 400 180 L 400 220" stroke="#000" stroke-width="2" fill="none" marker-end="url(#arrowhead)" />
+  
+  <!-- Command Execution to System Services -->
+  <path d="M 300 310 L 125 340" stroke="#000" stroke-width="2" fill="none" marker-end="url(#arrowhead)" />
+  <path d="M 350 310 L 300 340" stroke="#000" stroke-width="2" fill="none" marker-end="url(#arrowhead)" />
+  <path d="M 450 310 L 475 340" stroke="#000" stroke-width="2" fill="none" marker-end="url(#arrowhead)" />
+  <path d="M 500 310 L 650 340" stroke="#000" stroke-width="2" fill="none" marker-end="url(#arrowhead)" />
+  
+  <!-- System Services to Linux Kernel -->
+  <path d="M 125 410 L 200 440" stroke="#000" stroke-width="2" fill="none" marker-end="url(#arrowhead)" />
+  <path d="M 300 410 L 300 440" stroke="#000" stroke-width="2" fill="none" marker-end="url(#arrowhead)" />
+  <path d="M 475 410 L 450 440" stroke="#000" stroke-width="2" fill="none" marker-end="url(#arrowhead)" />
+  <path d="M 650 410 L 550 440" stroke="#000" stroke-width="2" fill="none" marker-end="url(#arrowhead)" />
+  
+  <!-- Linux Kernel to User Feedback -->
+  <path d="M 400 510 L 400 540" stroke="#000" stroke-width="2" fill="none" marker-end="url(#arrowhead)" />
+  
+  <!-- Arrowhead marker -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#000" />
+    </marker>
+  </defs>
+  
+  <!-- Legend -->
+  <rect x="600" y="500" width="150" height="80" rx="5" ry="5" fill="#fff" stroke="#d9d9d9" stroke-width="1" />
+  <text x="675" y="520" font-family="Arial" font-size="14" text-anchor="middle" font-weight="bold">Legend</text>
+  
+  <rect x="610" y="530" width="15" height="15" fill="#f6ffed" stroke="#52c41a" stroke-width="1" />
+  <text x="680" y="542" font-family="Arial" font-size="12" text-anchor="middle">AI Components</text>
+  
+  <rect x="610" y="555" width="15" height="15" fill="#e6fffb" stroke="#13c2c2" stroke-width="1" />
+  <text x="680" y="567" font-family="Arial" font-size="12" text-anchor="middle">System Components</text>
+</svg>
